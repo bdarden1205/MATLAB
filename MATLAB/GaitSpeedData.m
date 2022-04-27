@@ -7,8 +7,8 @@ Slow1 = readmatrix("Slow1.csv") ; Slow2 = readmatrix("Slow2.xlsx") ; Slow3 = rea
 Fast1 = readmatrix("Fast1.xlsx") ; Fast2 = readmatrix("Fast2.xlsx") ; Fast3 = readmatrix("Fast3.xlsx") ;
 Slow1 = Slow1(7:end,:) ; Slow2 = Slow2(7:end, :) ; Slow3 = Slow3(7:end, :) ;
 Fast1 = Fast1(7:end,:) ; Fast2 = Fast2(7:end, :) ; Fast3 = Fast3(7:end, :) ;
-Slow1(:,2) = Slow1(:,2) - 3.74 ; Slow2(:,2) = Slow2(:,2) - 4.12 ; Slow3(:,2) = Slow3(:,2) - 4.92 ;
-Fast1(:,2) = Fast1(:,2) - 3.67 ; Fast2(:,2) = Fast2(:,2) - 3.03 ; Fast3(:,2) = Fast3(:,2) - 3.01 ;
+Slow1(:,2) = Slow1(:,2) - 3.04 ; Slow2(:,2) = Slow2(:,2) - 3.69 ; Slow3(:,2) = Slow3(:,2) - 3.83 ;
+Fast1(:,2) = Fast1(:,2) - 3.76 ; Fast2(:,2) = Fast2(:,2) - 2.80 ; Fast3(:,2) = Fast3(:,2) - 3.02 ;
 stzero1 = Slow1(:,2) ; stzero2 = Slow2(:,2) ; stzero3 = Slow3(:,2) ;           % Time where gait is stable is t = 0
 ftzero1 = Fast1(:,2) ; ftzero2 = Fast2(:,2) ; ftzero3 = Fast3(:,2) ;
 sSter1 = Slow1(:,6:8) ; sSter2 = Slow2(:,6:8) ; sSter3 = Slow3(:,6:8) ;        % Sternum 
@@ -29,7 +29,103 @@ sLH1 = Slow1(:,36:38) ; sLH2 = Slow2(:,36:38) ; sLH3 = Slow3(:,36:38) ;        %
 fLH1 = Fast1(:,36:38) ; fLH2 = Fast2(:,36:38) ; fLH3 = Fast3(:,36:38) ;
 sRH1 = Slow1(:,57:59) ; sRH2 = Slow2(:,57:59) ; sRH3 = Slow3(:,57:59) ;        % Right Heel
 fRH1 = Fast1(:,57:59) ; fRH2 = Fast2(:,57:59) ; fRH3 = Fast3(:,57:59) ;
- 
+sLT1 = Slow1(:,39:41) ; sLT2 = Slow2(:,39:41) ; sLT3 = Slow3(:,39:41) ;        % Left Toe
+fLT1 = Fast1(:,39:41) ; fLT2 = Fast2(:,39:41) ; fLT3 = Fast3(:,39:41) ;
+sRT1 = Slow1(:,60:62) ; sRT2 = Slow2(:,60:62) ; sRT3 = Slow3(:,60:62) ;        % Right Toe
+fRT1 = Fast1(:,60:62) ; fRT2 = Fast2(:,60:62) ; fRT3 = Fast3(:,60:62) ;
+
+%% Sagittal Plane Stick Plots
+%{
+% Slow Trials
+n1 = length(stzero1(stzero1 >= 0)) ; n2 = length(stzero2(stzero2 >= 0)) ; n3 = length(stzero3(stzero3 >= 0)) ;
+sx1 = zeros(5,n1) ; sz1 = zeros(5,n1) ; sx2 = zeros(5,n2) ; sz2 = zeros(5,n2) ; sx3 = zeros(5,n3) ; sz3 = zeros(5,n3) ;
+sLGRT1 = sLGRT1(stzero1 >= 0,:) ; sLLK1 = sLLK1(stzero1 >= 0,:) ; sLLA1 = sLLA1(stzero1 >= 0,:) ; sLH1 = sLH1(stzero1 >= 0,:) ; sLT1 = sLT1(stzero1 >= 0,:) ;
+sLGRT2 = sLGRT2(stzero2 >= 0,:) ; sLLK2 = sLLK2(stzero2 >= 0,:) ; sLLA2 = sLLA2(stzero2 >= 0,:) ; sLH2 = sLH2(stzero2 >= 0,:) ; sLT2 = sLT2(stzero2 >= 0,:) ;
+sLGRT3 = sLGRT3(stzero3 >= 0,:) ; sLLK3 = sLLK3(stzero3 >= 0,:) ; sLLA3 = sLLA3(stzero3 >= 0,:) ; sLH3 = sLH3(stzero3 >= 0,:) ; sLT3 = sLT3(stzero3 >= 0,:) ;
+for i = 1:n1
+    sx1(1:5,i) = [sLGRT1(i,1); sLLK1(i,1); sLLA1(i,1); sLH1(i,1); sLT1(i,1)] ;
+    sz1(1:5,i) = [sLGRT1(i,3); sLLK1(i,3); sLLA1(i,3); sLH1(i,3); sLT1(i,3)] ;
+end
+for i = 1:n2
+    sx2(1:5,i) = [sLGRT2(i,1); sLLK2(i,1); sLLA2(i,1); sLH2(i,1); sLT2(i,1)] ;
+    sz2(1:5,i) = [sLGRT2(i,3); sLLK2(i,3); sLLA2(i,3); sLH2(i,3); sLT2(i,3)] ;
+end
+for i = 1:n3
+    sx3(1:5,i) = [sLGRT3(i,1); sLLK3(i,1); sLLA3(i,1); sLH3(i,1); sLT3(i,1)] ;
+    sz3(1:5,i) = [sLGRT3(i,3); sLLK3(i,3); sLLA3(i,3); sLH3(i,3); sLT3(i,3)] ;
+end
+
+% Fast Trials
+m1 = length(ftzero1(ftzero1 >= 0)) ; m2 = length(ftzero2(ftzero2 >= 0)) ; m3 = length(ftzero3(ftzero3 >= 0)) ;
+fx1 = zeros(5,n1) ; fz1 = zeros(5,n1) ; fx2 = zeros(5,n2) ; fz2 = zeros(5,n2) ; fx3 = zeros(5,n3) ; fz3 = zeros(5,n3) ;
+fLGRT1 = fLGRT1(ftzero1 >= 0,:) ; fLLK1 = fLLK1(ftzero1 >= 0,:) ; fLLA1 = fLLA1(ftzero1 >= 0,:) ; fLH1 = fLH1(ftzero1 >= 0,:) ; fLT1 = fLT1(ftzero1 >= 0,:) ;
+fLGRT2 = fLGRT2(ftzero2 >= 0,:) ; fLLK2 = fLLK2(ftzero2 >= 0,:) ; fLLA2 = fLLA2(ftzero2 >= 0,:) ; fLH2 = fLH2(ftzero2 >= 0,:) ; fLT2 = fLT2(ftzero2 >= 0,:) ;
+fLGRT3 = fLGRT3(ftzero3 >= 0,:) ; fLLK3 = fLLK3(ftzero3 >= 0,:) ; fLLA3 = fLLA3(ftzero3 >= 0,:) ; fLH3 = fLH3(ftzero3 >= 0,:) ; fLT3 = fLT3(ftzero3 >= 0,:) ;
+for i = 1:m1
+    fx1(1:5,i) = [fLGRT1(i,1); fLLK1(i,1); fLLA1(i,1); fLH1(i,1); fLT1(i,1)] ;
+    fz1(1:5,i) = [fLGRT1(i,3); fLLK1(i,3); fLLA1(i,3); fLH1(i,3); fLT1(i,3)] ;
+end
+for i = 1:m2
+    fx2(1:5,i) = [fLGRT2(i,1); fLLK2(i,1); fLLA2(i,1); fLH2(i,1); fLT2(i,1)] ;
+    fz2(1:5,i) = [fLGRT2(i,3); fLLK2(i,3); fLLA2(i,3); fLH2(i,3); fLT2(i,3)] ;
+end
+for i = 1:m3
+    fx3(1:5,i) = [fLGRT3(i,1); fLLK3(i,1); fLLA3(i,1); fLH3(i,1); fLT3(i,1)] ;
+    fz3(1:5,i) = [fLGRT3(i,3); fLLK3(i,3); fLLA3(i,3); fLH3(i,3); fLT3(i,3)] ;
+end
+
+figure()
+subplot(3,2,1)
+plot(sx1(:,1:50:end), sz1(:,1:50:end), 'linewidth', 1.25) ;
+hold on
+hip1 = text(sx1(1,4), sz1(1,1), 'Hip') ; knee1 = text(sx1(2,4), sz1(2,1), 'Knee') ; ankle1 = text(sx1(3,4), sz1(3,1), 'Ankle') ; 
+title('Slow Trial 1 Stick Plot') ; xlabel('x position [mm]') ; ylabel('z position [mm]') ;
+legend('t0','t0.5', 't1', 't1.5', 't2', 't2.5', 't3', 't3.5', 't4', 't4.5', 'location', 'best') ;
+hold off
+
+subplot(3,2,3)
+plot(sx2(:,1:50:end), sz2(:,1:50:end), 'linewidth', 1.25) ;
+hold on
+hip2 = text(sx2(1,4), sz2(1,1), 'Hip') ; knee2 = text(sx2(2,4), sz2(2,1), 'Knee') ; ankle2 = text(sx2(3,4), sz2(3,1), 'Ankle') ; 
+title('Slow Trial 2 Stick Plot') ; xlabel('x position [mm]') ; ylabel('z position [mm]') ;
+legend('t0','t0.5', 't1', 't1.5', 't2', 't2.5', 't3', 't3.5', 't4', 't4.5', 'location', 'best') ;
+hold off
+
+subplot(3,2,5)
+plot(sx3(:,1:50:end), sz3(:,1:50:end), 'linewidth', 1.25) ;
+hold on
+hip3 = text(sx3(1,4), sz3(1,1), 'Hip') ; knee3 = text(sx3(2,4), sz3(2,1), 'Knee') ; ankle3 = text(sx3(3,4), sz3(3,1), 'Ankle') ; 
+title('Slow Trial 3 Stick Plot') ; xlabel('x position [mm]') ; ylabel('z position [mm]') ;
+legend('t0','t0.5', 't1', 't1.5', 't2', 't2.5', 't3', 't3.5', 't4', 't4.5', 'location', 'best') ;
+hold off
+
+subplot(3,2,2)
+plot(fx1(:,1:50:end), fz1(:,1:50:end), 'linewidth', 1.25) ;
+hold on
+fhip1 = text(fx1(1,4), fz1(1,1), 'Hip') ; fknee1 = text(fx1(2,4), fz1(2,1), 'Knee') ; fankle1 = text(fx1(3,4), fz1(3,1), 'Ankle') ; 
+title('Fast Trial 1 Stick Plot') ; xlabel('x position [mm]') ; ylabel('z position [mm]') ;
+legend('t','t0.5', 't1', 't1.5', 't2', 'location', 'best') ;
+hold off
+
+subplot(3,2,4)
+plot(fx2(:,1:50:end), fz2(:,1:50:end), 'linewidth', 1.25) ;
+hold on
+fhip2 = text(fx2(1,4), fz2(1,1), 'Hip') ; fknee2 = text(fx2(2,4), fz2(2,1), 'Knee') ; fankle2 = text(fx2(3,4), fz2(3,1), 'Ankle') ; 
+title('Fast Trial 2 Stick Plot') ; xlabel('x position [mm]') ; ylabel('z position [mm]') ;
+legend('t0','t0.5', 't1', 't1.5', 't2', 'location', 'best') ;
+hold off
+
+subplot(3,2,6)
+plot(fx3(:,1:50:end), fz3(:,1:50:end), 'linewidth', 1.25) ;
+hold on
+fhip3 = text(fx3(1,4), fz3(1,1), 'Hip') ; fknee3 = text(fx3(2,4), fz3(2,1), 'Knee') ; fankle3 = text(fx3(3,4), fz3(3,1), 'Ankle') ; 
+title('Fast Trial 3 Stick Plot') ; xlabel('x position [mm]') ; ylabel('z position [mm]') ;
+legend('t0','t0.5', 't1', 't1.5', 't2', 'location', 'best') ;
+hold off
+
+
+
+%}
 
 %% i) Stride Length from Heel Markers
 %{
@@ -56,13 +152,13 @@ fRSL3 = stridelength(fRH3(ftzero3 >= 0,:), ftzero3(ftzero3 >= 0)) ;
 
 % Left Side Stride
 figure()
-plot(stzero1(stzero1 >= 0), sLH1(stzero1 >= 0,1), ":.", 'linewidth', 1.25) ;
+plot(stzero1(stzero1 >= 0), sLH1(stzero1 >= 0,1), ":.", 'Color', '#DC1C13', 'linewidth', 1.25) ;
 hold on
-plot(stzero2(stzero2 >= 0), sLH2(stzero2 >= 0,1), ":.", 'linewidth', 1.25) ;
-plot(stzero3(stzero3 >= 0), sLH3(stzero3 >= 0,1), ":.", 'linewidth', 1.25) ;
-plot(ftzero1(ftzero1 >= 0), fLH1(ftzero1 >= 0,1), 'linewidth', 1.25) ;
-plot(ftzero2(ftzero2 >= 0), fLH2(ftzero2 >= 0,1), 'linewidth', 1.25) ;
-plot(ftzero3(ftzero3 >= 0), fLH3(ftzero3 >= 0,1), 'linewidth', 1.25) ;
+plot(stzero2(stzero2 >= 0), sLH2(stzero2 >= 0,1), ":.", 'Color', '#EA4C46', 'linewidth', 1.25) ;
+plot(stzero3(stzero3 >= 0), sLH3(stzero3 >= 0,1), ":.", 'Color', '#F1959B', 'linewidth', 1.25) ;
+plot(ftzero1(ftzero1 >= 0), fLH1(ftzero1 >= 0,1), 'Color', '#000080', 'linewidth', 1.25) ;
+plot(ftzero2(ftzero2 >= 0), fLH2(ftzero2 >= 0,1), 'Color', '#0072BB', 'linewidth', 1.25) ;
+plot(ftzero3(ftzero3 >= 0), fLH3(ftzero3 >= 0,1), 'Color', '#ADD8E6', 'linewidth', 1.25) ;
 grid on
 xlabel("Time [s]") ;
 ylabel('Heel Displacemet [mm]') ;
@@ -75,13 +171,13 @@ legend(s1, s2, s3, f1, f2, f3, 'location', 'best') ;
 
 % Right Side Stride
 figure()
-plot(stzero1(stzero1 >= 0), sRH1(stzero1 >= 0,1), ":.", 'linewidth', 1.25) ;
+plot(stzero1(stzero1 >= 0), sRH1(stzero1 >= 0,1), ":.", 'Color', '#DC1C13', 'linewidth', 1.25) ;
 hold on
-plot(stzero2(stzero2 >= 0), sRH2(stzero2 >= 0,1), ":.", 'linewidth', 1.25) ;
-plot(stzero3(stzero3 >= 0), sRH3(stzero3 >= 0,1), ":.", 'linewidth', 1.25) ;
-plot(ftzero1(ftzero1 >= 0), fRH1(ftzero1 >= 0,1), 'linewidth', 1.25) ;
-plot(ftzero2(ftzero2 >= 0), fRH2(ftzero2 >= 0,1), 'linewidth', 1.25) ;
-plot(ftzero3(ftzero3 >= 0), fRH3(ftzero3 >= 0,1), 'linewidth', 1.25) ;
+plot(stzero2(stzero2 >= 0), sRH2(stzero2 >= 0,1), ":.", 'Color', '#EA4C46', 'linewidth', 1.25) ;
+plot(stzero3(stzero3 >= 0), sRH3(stzero3 >= 0,1), ":.", 'Color', '#F1959B', 'linewidth', 1.25) ;
+plot(ftzero1(ftzero1 >= 0), fRH1(ftzero1 >= 0,1), 'Color', '#000080', 'linewidth', 1.25) ;
+plot(ftzero2(ftzero2 >= 0), fRH2(ftzero2 >= 0,1), 'Color', '#0072BB', 'linewidth', 1.25) ;
+plot(ftzero3(ftzero3 >= 0), fRH3(ftzero3 >= 0,1), 'Color', '#ADD8E6', 'linewidth', 1.25) ;
 grid on
 xlabel("Time [s]") ;
 ylabel('Heel Displacemet [mm]') ;
@@ -153,13 +249,13 @@ fvavg3 = mean(fvster3, 'omitnan') ;
 
 % Walking Speed
 figure()
-plot(stzero1(stzero1 >= 0), svster1, ":.", 'linewidth', 1.5) ;
+plot(stzero1(stzero1 >= 0), svster1, ":.", 'Color', '#DC1C13', 'linewidth', 1.5) ;
 hold on 
-plot(stzero2(stzero2 >= 0), svster2, ":.", "linewidth", 1.5) ;
-plot(stzero3(stzero3 >= 0), svster3, ":.", "linewidth", 1.5) ;
-plot(ftzero1(ftzero1 >= 0), fvster1, 'linewidth', 1.5) ;
-plot(ftzero2(ftzero2 >= 0), fvster2, 'linewidth', 1.5) ;
-plot(ftzero3(ftzero3 >= 0), fvster3, 'linewidth', 1.5) ;
+plot(stzero2(stzero2 >= 0), svster2, ":.", 'Color', '#EA4C46', "linewidth", 1.5) ;
+plot(stzero3(stzero3 >= 0), svster3, ":.", 'Color', '#F1959B', "linewidth", 1.5) ;
+plot(ftzero1(ftzero1 >= 0), fvster1, 'Color', '#000080', 'linewidth', 1.5) ;
+plot(ftzero2(ftzero2 >= 0), fvster2, 'Color', '#0072BB', 'linewidth', 1.5) ;
+plot(ftzero3(ftzero3 >= 0), fvster3, 'Color', '#ADD8E6', 'linewidth', 1.5) ;
 title("Forward Walking Speed") ;
 xlabel("Time [s]") ;
 ylabel("Walking Speed [m/s]") ;
@@ -257,13 +353,13 @@ hold off
 
 % Left Heel Resultant Velocity
 figure()
-plot(stzero1(stzero1 >= 0), svLH1, ":.", 'linewidth', 1.25) ;
+plot(stzero1(stzero1 >= 0), svLH1, ":.", 'Color', '#DC1C13', 'linewidth', 1.25) ;
 hold on
-plot(stzero2(stzero2 >= 0), svLH2, ":.", 'linewidth', 1.25) ;
-plot(stzero3(stzero3 >= 0), svLH3, ":.", 'linewidth', 1.25) ;
-plot(ftzero1(ftzero1 >= 0), fvLH1, 'linewidth', 1.25) ;
-plot(ftzero2(ftzero2 >= 0), fvLH2, 'linewidth', 1.25) ;
-plot(ftzero3(ftzero3 >= 0), fvLH3, 'linewidth', 1.25) ;
+plot(stzero2(stzero2 >= 0), svLH2, ":.", 'Color', '#EA4C46', 'linewidth', 1.25) ;
+plot(stzero3(stzero3 >= 0), svLH3, ":.", 'Color', '#F1959B', 'linewidth', 1.25) ;
+plot(ftzero1(ftzero1 >= 0), fvLH1, 'Color', '#000080', 'linewidth', 1.25) ;
+plot(ftzero2(ftzero2 >= 0), fvLH2, 'Color', '#0072BB', 'linewidth', 1.25) ;
+plot(ftzero3(ftzero3 >= 0), fvLH3, 'Color', '#ADD8E6', 'linewidth', 1.25) ;
 title("Left Heel Resultant Velocity") ;
 xlabel('Time [s]') ;
 ylabel('Heel Velocity [m/s]') ;
@@ -276,13 +372,13 @@ hold off
 
 % Right Heel Resultant Velocity
 figure()
-plot(stzero1(stzero1 >= 0), svRH1, ":.", 'linewidth', 1.25) ;
+plot(stzero1(stzero1 >= 0), svRH1, ":.", 'Color', '#DC1C13', 'linewidth', 1.25) ;
 hold on
-plot(stzero2(stzero2 >= 0), svRH2, ":.", 'linewidth', 1.25) ;
-plot(stzero3(stzero3 >= 0), svRH3, ":.", 'linewidth', 1.25) ;
-plot(ftzero1(ftzero1 >= 0), fvRH1, 'linewidth', 1.25) ;
-plot(ftzero2(ftzero2 >= 0), fvRH2, 'linewidth', 1.25) ;
-plot(ftzero3(ftzero3 >= 0), fvRH3, 'linewidth', 1.25) ;
+plot(stzero2(stzero2 >= 0), svRH2, ":.", 'Color', '#EA4C46', 'linewidth', 1.25) ;
+plot(stzero3(stzero3 >= 0), svRH3, ":.", 'Color', '#F1959B', 'linewidth', 1.25) ;
+plot(ftzero1(ftzero1 >= 0), fvRH1, 'Color', '#000080', 'linewidth', 1.25) ;
+plot(ftzero2(ftzero2 >= 0), fvRH2, 'Color', '#0072BB', 'linewidth', 1.25) ;
+plot(ftzero3(ftzero3 >= 0), fvRH3, 'Color', '#ADD8E6', 'linewidth', 1.25) ;
 title("Right Heel Resultant Velocity") ;
 xlabel('Time [s]') ;
 ylabel('Heel Velocity [m/s]') ;
@@ -331,48 +427,48 @@ hold off
 safLH1 = filtera(saLH1) ; safx = filtera(saxyz(:,1)) ; safy = filtera(saxyz(:,2)) ;
 safz = filtera(saxyz(:,3)) ; safxyz = [safx, safy, safz] ;
 saxavg = mean(safx,'omitnan') ; sayavg = mean(safy,'omitnan') ; sazavg = mean(safz,'omitnan') ;
-saLHavg1 = mean(safLH1(safLH1 > 0)) ; 
+saLHavg1 = mean(safLH1, 'omitnan') ; 
 [saLH2, ~] = finitediffa(svL2) ;                                                                % Trial 2
 safLH2 = filtera(saLH2) ;
-saLHavg2 = mean(safLH2(safLH2 > 0)) ; 
+saLHavg2 = mean(safLH2, 'omitnan') ; 
 [saLH3, ~] = finitediffa(svL3) ;                                                                % Trial 3
 safLH3 = filtera(saLH3) ;
-saLHavg3 = mean(safLH3(safLH3 > 0)) ; 
+saLHavg3 = mean(safLH3, 'omitnan') ; 
 
 % Left Heel Fast Acceleration Calculations
 [faLH1, faxyz] = finitediffa(fvL1) ;                                                            % Trial 1 
 fafLH1 = filtera(faLH1) ; fafx = filtera(faxyz(:,1)) ; fafy = filtera(faxyz(:,2)) ;
 fafz = filtera(faxyz(:,3)) ; fafxyz = [fafx, fafy, fafz] ;
 faxavg = mean(fafx,'omitnan') ; fayavg = mean(fafy,'omitnan') ; fazavg = mean(fafz,'omitnan') ;
-faLHavg1 = mean(fafLH1(fafLH1 > 0)) ; 
+faLHavg1 = mean(fafLH1, 'omitnan') ; 
 [faLH2, ~] = finitediffa(fvL2) ;                                                                % Trial 2
 fafLH2 = filtera(faLH2) ;
-faLHavg2 = mean(faLH2(faLH2 > 0)) ; 
+faLHavg2 = mean(faLH2, 'omitnan') ; 
 [faLH3, ~] = finitediffa(fvL3) ;                                                                % Trial 3
 fafLH3 = filtera(faLH3) ;
-faLHavg3 = mean(fafLH3(fafLH3 > 0)) ;
+faLHavg3 = mean(fafLH3, 'omitnan') ;
 
 % Right Heel Slow Acceleration Calculations
 [saRH1, ~] = finitediffa(svR1) ;                                                                % Trial 1
 safRH1 = filtera(saRH1) ;
-saRHavg1 = mean(safRH1(safRH1 > 0)) ; 
+saRHavg1 = mean(safRH1, 'omitnan') ; 
 [saRH2, ~] = finitediffa(svR2) ;                                                                % Trial 2
 safRH2 = filtera(saRH2) ;
-saRHavg2 = mean(safRH2(safRH2 > 0)) ; 
+saRHavg2 = mean(safRH2, 'omitnan') ; 
 [saRH3, ~] = finitediffa(svR3) ;                                                                % Trial 3
 safRH3 = filtera(saRH3) ;
-saRHavg3 = mean(safRH3(safRH3 > 0)) ; 
+saRHavg3 = mean(safRH3, 'omitnan') ; 
 
 % Right Heel Fast Acceleration Calculations
 [faRH1, ~] = finitediffa(fvR1) ;                                                                % Trial 1
 fafRH1 = filtera(faRH1) ;
-faRHavg1 = mean(fafRH1(fafRH1 > 0)) ; 
+faRHavg1 = mean(fafRH1, 'omitnan') ; 
 [faRH2, ~] = finitediffa(fvR2) ;                                                                % Trial 2
 fafRH2 = filtera(faRH2) ;
-faRHavg2 = mean(fafRH2(fafRH2 > 0)) ; 
+faRHavg2 = mean(fafRH2, 'omitnan') ; 
 [faRH3, ~] = finitediffa(fvR3) ;                                                                % Trial 3
 fafRH3 = filtera(faRH3) ;
-faRHavg3 = mean(fafRH3(fafRH3 > 0)) ; 
+faRHavg3 = mean(fafRH3, 'omitnan') ; 
 
 % Slow Trial 1 Showing Resultant and Components
 figure()
@@ -402,13 +498,13 @@ hold off
 
 % Left Heel Resultant Acceleration
  figure()
- plot(stzero1(stzero1 >= 0), safLH1, ":.", "linewidth", 1.25) ;
+ plot(stzero1(stzero1 >= 0), safLH1, ":.", 'Color', '#DC1C13', "linewidth", 1.25) ;
  hold on
- plot(stzero2(stzero2 >= 0), safLH2, ":.", 'linewidth', 1.25) ;
- plot(stzero3(stzero3 >= 0), safLH3, ":.", 'linewidth', 1.25) ;
- plot(ftzero1(ftzero1 >= 0), fafLH1, 'linewidth', 1.25) ;
- plot(ftzero2(ftzero2 >= 0), fafLH2, 'linewidth', 1.25) ;
- plot(ftzero3(ftzero3 >= 0), fafLH3, 'linewidth', 1.25) ;
+ plot(stzero2(stzero2 >= 0), safLH2, ":.", 'Color', '#EA4C46', 'linewidth', 1.25) ;
+ plot(stzero3(stzero3 >= 0), safLH3, ":.", 'Color', '#F1959B', 'linewidth', 1.25) ;
+ plot(ftzero1(ftzero1 >= 0), fafLH1, 'Color', '#000080', 'linewidth', 1.25) ;
+ plot(ftzero2(ftzero2 >= 0), fafLH2, 'Color', '#0072BB', 'linewidth', 1.25) ;
+ plot(ftzero3(ftzero3 >= 0), fafLH3, 'Color', '#ADD8E6', 'linewidth', 1.25) ;
  title("Filtered Left Heel Resultant Acceleration") ;
  xlabel("Time [s]") ;
  ylabel("Linear Acceleration [m/s^2]") ;
@@ -421,13 +517,13 @@ hold off
 
 % Right Heel Resultant Acceleration
  figure()
- plot(stzero1(stzero1 >= 0), safRH1, ":.", "linewidth", 1.25) ;
+ plot(stzero1(stzero1 >= 0), safRH1, ":.", 'Color', '#DC1C13', "linewidth", 1.25) ;
  hold on
- plot(stzero2(stzero2 >= 0), safRH2, ":.", 'linewidth', 1.25) ;
- plot(stzero3(stzero3 >= 0), safRH3, ":.", 'linewidth', 1.25) ;
- plot(ftzero1(ftzero1 >= 0), fafRH1, 'linewidth', 1.25) ;
- plot(ftzero2(ftzero2 >= 0), fafRH2, 'linewidth', 1.25) ;
- plot(ftzero3(ftzero3 >= 0), fafRH3, 'linewidth', 1.25) ;
+ plot(stzero2(stzero2 >= 0), safRH2, ":.", 'Color', '#EA4C46', 'linewidth', 1.25) ;
+ plot(stzero3(stzero3 >= 0), safRH3, ":.", 'Color', '#F1959B', 'linewidth', 1.25) ;
+ plot(ftzero1(ftzero1 >= 0), fafRH1, 'Color', '#000080', 'linewidth', 1.25) ;
+ plot(ftzero2(ftzero2 >= 0), fafRH2, 'Color', '#0072BB', 'linewidth', 1.25) ;
+ plot(ftzero3(ftzero3 >= 0), fafRH3, 'Color', '#ADD8E6', 'linewidth', 1.25) ;
  title("Filtered Right Heel Resultant Acceleration") ;
  xlabel("Time [s]") ;
  ylabel("Linear Acceleration [m/s^2]") ;
@@ -505,13 +601,13 @@ fr3max = max(frtheta3) ;
 
 % Left Side Knee Angle
 figure()
-plot(stzero1(stzero1 >= 0), sltheta1, ":.", "linewidth", 1.25) ;
+plot(stzero1(stzero1 >= 0), sltheta1, ":.", 'Color', '#DC1C13', "linewidth", 1.25) ;
 hold on
-plot(stzero2(stzero2 >= 0), sltheta2, ":.", "linewidth", 1.25) ;
-plot(stzero3(stzero3 >= 0), sltheta3, ":.", "linewidth", 1.25) ;
-plot(ftzero1(ftzero1 >= 0), fltheta1, 'linewidth', 1.25) ;
-plot(ftzero2(ftzero2 >= 0), fltheta2, 'linewidth', 1.25) ;
-plot(ftzero3(ftzero3 >= 0), fltheta3, 'linewidth', 1.25) ;
+plot(stzero2(stzero2 >= 0), sltheta2, ":.", 'Color', '#EA4C46', "linewidth", 1.25) ;
+plot(stzero3(stzero3 >= 0), sltheta3, ":.", 'Color', '#F1959B', "linewidth", 1.25) ;
+plot(ftzero1(ftzero1 >= 0), fltheta1, 'Color', '#000080', 'linewidth', 1.25) ;
+plot(ftzero2(ftzero2 >= 0), fltheta2, 'Color', '#0072BB', 'linewidth', 1.25) ;
+plot(ftzero3(ftzero3 >= 0), fltheta3, 'Color', '#ADD8E6', 'linewidth', 1.25) ;
 title("Left Knee Relative Joint Angle") ;
 xlabel("Time [s]") ;
 ylabel("Joint Angle [deg]") ;
@@ -526,13 +622,13 @@ grid on
 
 % Right Side Knee Angle
 figure()
-plot(stzero1(stzero1 >= 0), srtheta1, ":.", "linewidth", 1.25) ;
+plot(stzero1(stzero1 >= 0), srtheta1, ":.", 'Color', '#DC1C13', "linewidth", 1.25) ;
 hold on
-plot(stzero2(stzero2 >= 0), srtheta2, ":.", "linewidth", 1.25) ;
-plot(stzero3(stzero3 >= 0), srtheta3, ":.", "linewidth", 1.25) ;
-plot(ftzero1(ftzero1 >= 0), frtheta1, 'linewidth', 1.25) ;
-plot(ftzero2(ftzero2 >= 0), frtheta2, 'linewidth', 1.25) ;
-plot(ftzero3(ftzero3 >= 0), frtheta3, 'linewidth', 1.25) ;
+plot(stzero2(stzero2 >= 0), srtheta2, ":.", 'Color', '#EA4C46', "linewidth", 1.25) ;
+plot(stzero3(stzero3 >= 0), srtheta3, ":.", 'Color', '#F1959B', "linewidth", 1.25) ;
+plot(ftzero1(ftzero1 >= 0), frtheta1, 'Color', '#000080', 'linewidth', 1.25) ;
+plot(ftzero2(ftzero2 >= 0), frtheta2, 'Color', '#0072BB', 'linewidth', 1.25) ;
+plot(ftzero3(ftzero3 >= 0), frtheta3, 'Color', '#ADD8E6', 'linewidth', 1.25) ;
 title("Right Knee Relative Joint Angle") ;
 xlabel("Time [s]") ;
 ylabel("Joint Angle [deg]") ;
@@ -614,13 +710,13 @@ frav3 = finitediffav(frthetas3) ; frav3 = frav3(ftzero3 >= 0) ;
 
 % Left Side Shank Angular Velocity
 figure()
-plot(stzero1(stzero1 >= 0), slav1*pi/180, ":.", 'linewidth', 1.25) ;
+plot(stzero1(stzero1 >= 0), slav1*pi/180, ":.", 'Color', '#DC1C13', 'linewidth', 1.25) ;
 hold on
-plot(stzero2(stzero2 >= 0), slav2*pi/180, ":.", 'linewidth', 1.25) ;
-plot(stzero3(stzero3 >= 0), slav3*pi/180, ":.", "linewidth", 1.25) ;
-plot(ftzero1(ftzero1 >= 0), flav1*pi/180, 'linewidth', 1.25) ;
-plot(ftzero2(ftzero2 >= 0), flav2*pi/180, 'linewidth', 1.25) ;
-plot(ftzero3(ftzero3 >= 0), flav3*pi/180, 'linewidth', 1.25) ;
+plot(stzero2(stzero2 >= 0), slav2*pi/180, ":.", 'Color', '#EA4C46', 'linewidth', 1.25) ;
+plot(stzero3(stzero3 >= 0), slav3*pi/180, ":.", 'Color', '#F1959B', "linewidth", 1.25) ;
+plot(ftzero1(ftzero1 >= 0), flav1*pi/180, 'Color', '#000080', 'linewidth', 1.25) ;
+plot(ftzero2(ftzero2 >= 0), flav2*pi/180, 'Color', '#0072BB', 'linewidth', 1.25) ;
+plot(ftzero3(ftzero3 >= 0), flav3*pi/180, 'Color', '#ADD8E6', 'linewidth', 1.25) ;
 title("Left Shank Angular Velocity")
 xlabel("Time [s]") ;
 ylabel("Angular Velocity [rad/s]") ;
@@ -634,13 +730,13 @@ hold off
 
 % Right Side Shank Angular Velocity
 figure()
-plot(stzero1(stzero1 >= 0), srav1*pi/180, ":.", 'linewidth', 1.25) ;
+plot(stzero1(stzero1 >= 0), srav1*pi/180, ":.", 'Color', '#DC1C13', 'linewidth', 1.25) ;
 hold on
-plot(stzero2(stzero2 >= 0), srav2*pi/180, ":.", 'linewidth', 1.25) ;
-plot(stzero3(stzero3 >= 0), srav3*pi/180, ":.", "linewidth", 1.25) ;
-plot(ftzero1(ftzero1 >= 0), frav1*pi/180, 'linewidth', 1.25) ;
-plot(ftzero2(ftzero2 >= 0), frav2*pi/180, 'linewidth', 1.25) ;
-plot(ftzero3(ftzero3 >= 0), frav3*pi/180, 'linewidth', 1.25) ;
+plot(stzero2(stzero2 >= 0), srav2*pi/180, ":.", 'Color', '#EA4C46', 'linewidth', 1.25) ;
+plot(stzero3(stzero3 >= 0), srav3*pi/180, ":.", 'Color', '#F1959B', "linewidth", 1.25) ;
+plot(ftzero1(ftzero1 >= 0), frav1*pi/180, 'Color', '#000080', 'linewidth', 1.25) ;
+plot(ftzero2(ftzero2 >= 0), frav2*pi/180, 'Color', '#0072BB', 'linewidth', 1.25) ;
+plot(ftzero3(ftzero3 >= 0), frav3*pi/180, 'Color', '#ADD8E6', 'linewidth', 1.25) ;
 title("Right Shank Angular Velocity")
 xlabel("Time [s]") ;
 ylabel("Angular Velocity [rad/s]") ;
@@ -733,40 +829,40 @@ frfaa3 = filtera(fraa3) ;
 
 % Left Side Shank Angular Acceleration
 figure()
-plot(stzero1(stzero1 >= 0), slfaa1*pi/180, ":.", 'linewidth', 1.25) ;
+plot(stzero1(stzero1 >= 0), slfaa1*pi/180, ":.", 'Color', '#DC1C13', 'linewidth', 1.25) ;
 hold on
-plot(stzero2(stzero2 >= 0), slfaa2*pi/180, ":.", 'linewidth', 1.25) ;
-plot(stzero3(stzero3 >= 0), slfaa3*pi/180, ":.", "linewidth", 1.25) ;
-plot(ftzero1(ftzero1 >= 0), flfaa1*pi/180, 'linewidth', 1.25) ;
-plot(ftzero2(ftzero2 >= 0), flfaa2*pi/180, 'linewidth', 1.25) ;
-plot(ftzero3(ftzero3 >= 0), flfaa3*pi/180, 'linewidth', 1.25) ;
+plot(stzero2(stzero2 >= 0), slfaa2*pi/180, ":.", 'Color', '#EA4C46', 'linewidth', 1.25) ;
+plot(stzero3(stzero3 >= 0), slfaa3*pi/180, ":.", 'Color', '#F1959B', "linewidth", 1.25) ;
+plot(ftzero1(ftzero1 >= 0), flfaa1*pi/180, 'Color', '#000080', 'linewidth', 1.25) ;
+plot(ftzero2(ftzero2 >= 0), flfaa2*pi/180, 'Color', '#0072BB', 'linewidth', 1.25) ;
+plot(ftzero3(ftzero3 >= 0), flfaa3*pi/180, 'Color', '#ADD8E6', 'linewidth', 1.25) ;
 title("Left Shank Angular Acceleration")
 xlabel("Time [s]") ;
 ylabel("Angular Acceleration [rad/s^2]") ;
-saa1 = sprintf("Slow Trial 1 alpha_{max} = %5f rad/s^2", max(slaa1*pi/180)) ; saa2 = sprintf("Slow Trial 2 alpha_{max} = %5f rad/s^2", max(slaa2*pi/180)) ;
-saa3 = sprintf("Slow Trial 3 alpha_{max} = %5f rad/s^2", max(slaa3*pi/180)) ;
-faa1 = sprintf("Fast Trial 1 alpha_{max} = %5f rad/s^2", max(flaa1*pi/180)) ; faa2 = sprintf("Fast Trial 2 alpha_{max} = %5f rad/s^2", max(flaa2*pi/180)) ; 
-faa3 = sprintf("Fast Trial 3 alpha_{max} = %5f rad/s^2", max(flaa3*pi/180)) ; 
+saa1 = sprintf("Slow Trial 1 alpha_{max} = %5f rad/s^2", max(slfaa1*pi/180)) ; saa2 = sprintf("Slow Trial 2 alpha_{max} = %5f rad/s^2", max(slfaa2*pi/180)) ;
+saa3 = sprintf("Slow Trial 3 alpha_{max} = %5f rad/s^2", max(slfaa3*pi/180)) ;
+faa1 = sprintf("Fast Trial 1 alpha_{max} = %5f rad/s^2", max(flfaa1*pi/180)) ; faa2 = sprintf("Fast Trial 2 alpha_{max} = %5f rad/s^2", max(flfaa2*pi/180)) ; 
+faa3 = sprintf("Fast Trial 3 alpha_{max} = %5f rad/s^2", max(flfaa3*pi/180)) ; 
 legend(saa1, saa2, saa3, faa1, faa2, faa3, 'location', 'best') ;
 grid on
 hold off
 
 % Right Side Shank Angular Acceleration
 figure()
-plot(stzero1(stzero1 >= 0), srfaa1*pi/180, ":.", 'linewidth', 1.25) ;
+plot(stzero1(stzero1 >= 0), srfaa1*pi/180, ":.", 'Color', '#DC1C13', 'linewidth', 1.25) ;
 hold on
-plot(stzero2(stzero2 >= 0), srfaa2*pi/180, ":.", 'linewidth', 1.25) ;
-plot(stzero3(stzero3 >= 0), srfaa3*pi/180, ":.", "linewidth", 1.25) ;
-plot(ftzero1(ftzero1 >= 0), frfaa1*pi/180, 'linewidth', 1.25) ;
-plot(ftzero2(ftzero2 >= 0), frfaa2*pi/180, 'linewidth', 1.25) ;
-plot(ftzero3(ftzero3 >= 0), frfaa3*pi/180, 'linewidth', 1.25) ;
+plot(stzero2(stzero2 >= 0), srfaa2*pi/180, ":.", 'Color', '#EA4C46', 'linewidth', 1.25) ;
+plot(stzero3(stzero3 >= 0), srfaa3*pi/180, ":.", 'Color', '#F1959B', "linewidth", 1.25) ;
+plot(ftzero1(ftzero1 >= 0), frfaa1*pi/180, 'Color', '#000080', 'linewidth', 1.25) ;
+plot(ftzero2(ftzero2 >= 0), frfaa2*pi/180, 'Color', '#0072BB', 'linewidth', 1.25) ;
+plot(ftzero3(ftzero3 >= 0), frfaa3*pi/180, 'Color', '#ADD8E6', 'linewidth', 1.25) ;
 title("Right Shank Angular Acceleration")
 xlabel("Time [s]") ;
 ylabel("Angular Acceleration [rad/s^2]") ;
-saa1 = sprintf("Slow Trial 1 alpha_{max} = %5f rad/s^2", max(sraa1*pi/180)) ; saa2 = sprintf("Slow Trial 2 omega_{max} = %5f rad/s^2", max(sraa2*pi/180)) ;
-saa3 = sprintf("Slow Trial 3 alpha_{max} = %5f rad/s^2", max(sraa3*pi/180)) ;
-faa1 = sprintf("Fast Trial 1 alpha_{max} = %5f rad/s^2", max(fraa1*pi/180)) ; faa2 = sprintf("Fast Trial 2 omega_{max} = %5f rad/s^2", max(fraa2*pi/180)) ; 
-faa3 = sprintf("Fast Trial 3 alpha_{max} = %5f rad/s^2", max(fraa3*pi/180)) ; 
+saa1 = sprintf("Slow Trial 1 alpha_{max} = %5f rad/s^2", max(srfaa1*pi/180)) ; saa2 = sprintf("Slow Trial 2 omega_{max} = %5f rad/s^2", max(srfaa2*pi/180)) ;
+saa3 = sprintf("Slow Trial 3 alpha_{max} = %5f rad/s^2", max(srfaa3*pi/180)) ;
+faa1 = sprintf("Fast Trial 1 alpha_{max} = %5f rad/s^2", max(frfaa1*pi/180)) ; faa2 = sprintf("Fast Trial 2 omega_{max} = %5f rad/s^2", max(frfaa2*pi/180)) ; 
+faa3 = sprintf("Fast Trial 3 alpha_{max} = %5f rad/s^2", max(frfaa3*pi/180)) ; 
 legend(saa1, saa2, saa3, faa1, faa2, faa3, 'location', 'best') ;
 grid on
 hold off
@@ -774,8 +870,8 @@ hold off
 
 % Comparing the Two Tests 
 % Left Side Comparison
-sMlaa = mean([max(slaa1*pi/180) max(slaa2*pi/180) max(slaa3*pi/180)]) ; sSDlaa = std([max(slaa1*pi/180) max(slaa2*pi/180) max(slaa3*pi/180)]) ;
-fMlaa = mean([max(flaa1*pi/180) max(flaa2*pi/180) max(flaa3*pi/180)]) ; fSDlaa = std([max(flaa1*pi/180) max(flaa2*pi/180) max(flaa3*pi/180)]) ;
+sMlaa = mean([max(slfaa1*pi/180) max(slfaa2*pi/180) max(slfaa3*pi/180)]) ; sSDlaa = std([max(slfaa1*pi/180) max(slfaa2*pi/180) max(slfaa3*pi/180)]) ;
+fMlaa = mean([max(flfaa1*pi/180) max(flfaa2*pi/180) max(flfaa3*pi/180)]) ; fSDlaa = std([max(flfaa1*pi/180) max(flfaa2*pi/180) max(flfaa3*pi/180)]) ;
 errhigh = [sSDlaa, fSDlaa] ; errlow = [sSDlaa, fSDlaa] ;
 Y = [sMlaa fMlaa]' ; X = categorical(["Slow Trials", "Fast Trials"]) ;
 figure() 
@@ -788,8 +884,8 @@ er.Color = [0 0 0] ; er.LineStyle = 'none' ;
 hold off
 
 % Right Side Comparison
-sMraa = mean([max(sraa1*pi/180) max(sraa2*pi/180) max(sraa3*pi/180)]) ; sSDraa = std([max(sraa1*pi/180) max(sraa2*pi/180) max(sraa3*pi/180)]) ;
-fMraa = mean([max(fraa1*pi/180) max(fraa2*pi/180) max(fraa3*pi/180)]) ; fSDraa = std([max(fraa1*pi/180) max(fraa2*pi/180) max(fraa3*pi/180)]) ;
+sMraa = mean([max(srfaa1*pi/180) max(srfaa2*pi/180) max(srfaa3*pi/180)]) ; sSDraa = std([max(srfaa1*pi/180) max(srfaa2*pi/180) max(srfaa3*pi/180)]) ;
+fMraa = mean([max(frfaa1*pi/180) max(frfaa2*pi/180) max(frfaa3*pi/180)]) ; fSDraa = std([max(frfaa1*pi/180) max(frfaa2*pi/180) max(frfaa3*pi/180)]) ;
 errhigh = [sSDraa, fSDraa] ; errlow = [sSDraa, fSDraa] ;
 Y = [sMraa fMraa]' ; X = categorical(["Slow Trials", "Fast Trials"]) ;
 figure() 
@@ -853,7 +949,7 @@ function [a, a1] = finitediffa(V)
     a = zeros(s,1) ;
     a1 = zeros(s,3) ;
     ts = 0.01 ;
-    for i = 3:s-2
+    for i = 2:s-1
         a1(i,1) = (V(i+1,1)-V(i-1,1))/(2*ts) ;
         a1(i,2) = (V(i+1,2)-V(i-1,2))/(2*ts) ;
         a1(i,3) = (V(i+1,3)-V(i-1,3))/(2*ts) ;
