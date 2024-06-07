@@ -56,7 +56,7 @@ for ii = 2
          Sw(ii) = 0.067; % m2
      end 
 
-for i = 1:length(run)
+for i = 1 %:length(run)
 
     [LATrial, averagetrim] = GetLAData(run(i), keelentry, LA0startpos, LA1startpos, Heave(ii));
     [ForceTrial, Vn(ii), nondimfactor_force(ii)] = GetForceData(run(i), keelentry, LA0startpos, LA1startpos, Trim(ii), Heave(ii), Surge(ii));
@@ -237,13 +237,41 @@ fprintf('Showing data for run # %d\n', run(i))
         plot(ForceTrial(:, 1), abs(ForceTrial(:, 4)), 'LineWidth', Ln, 'LineStyle', ':')
         xlabel('Time [s]', 'FontSize', font)
         ylabel('Force [N]', 'FontSize', font)
-        legend('x-axis', 'y-axis', 'location', 'best')
+        legend('Resultant', 'z-axis', 'location', 'best')
         xlim([-2 3])
         set(gca, 'FontSize', font) ;
         grid on
         hold off
         hold off
-        
+
+        figure(9), subplot(3, 1, 1)
+        hold on
+        plot(ForceTrial(:, 1), ForceTrial(:, 2), 'LineWidth', Ln)
+        xlabel('Time [s]','FontSize', font)
+        ylabel('Force [N]', 'FontSize', font)
+        legend('x-axis', 'location', 'best')
+        xlim([-2 3])
+        set(gca, 'FontSize', font) ;
+        grid on
+
+        figure(9), subplot(3, 1, 2)
+        plot(ForceTrial(:, 1), ForceTrial(:, 3), 'LineWidth', Ln)
+        xlabel('Time [s]','FontSize', font)
+        ylabel('Force [N]', 'FontSize', font)
+        legend('y-axis', 'location', 'best')
+        xlim([-2 3])
+        set(gca, 'FontSize', font) ;
+        grid on
+
+        figure(9), subplot(3, 1, 3)
+        plot(ForceTrial(:, 1), ForceTrial(:, 4), 'LineWidth', Ln)
+        xlabel('Time [s]','FontSize', font)
+        ylabel('Force [N]', 'FontSize', font)
+        legend('z-axis', 'location', 'best')
+        xlim([-2 3])
+        set(gca, 'FontSize', font) ;
+        grid on
+        hold off
 %         figure(8)
 %         plot(ForceTrial(:, 1), ForceTrial(:, 2:4), 'LineWidth', Ln) % forcetime, fxforce, fyforce, fzforce
 %         xlabel('Time [s]', 'FontSize', font)
@@ -1170,6 +1198,20 @@ function func = GetPotandIncData(Run, keelentry, LA0startpos, LA1startpos, Heave
     Pot = keelentry - Potvoltage .* calfactors(1); 
     Inc = Incvoltage .* calfactors(2); 
     
+    % Design the Butterworth filter 
+    n_order = 4 ;              % Filter order // only ranges 1-10
+    cutoff_freq = 100 ;        % Cutoff frequency in Hz // use fft to figure out
+
+    sampling_rate = 1 / (PotandInctime(2) - PotandInctime(1)) ;  %% Not sure if this is correct // 
+    % the sampling rate of the Butterworth filter is 1Hz at each the time T = 1/1000Hz 
+    % (1000Hz = sampling rate of the input signal)
+
+    norm_cutoff = cutoff_freq / (sampling_rate / 2); % Normalized cutoff
+    [b, a] = butter(n_order, norm_cutoff, 'low');
+
+    Pot = filtfilt(b, a, Pot) ;
+    Inc = filtfilt(b, a, Inc) ;
+
     averagetrim = mean(Inc);
     
     func = zeros(length(PotandInctime), 4);
@@ -1232,7 +1274,7 @@ end
 function func = PotandIncZeros(Run)
     [PI0s] = readtable(Run + "PotandInc_ZEROS.csv");
     P0s = mean(PI0s.Var2(11:end, :));
-    I0s = 2.5107; %Taken from 0 deg case calibration of calibration data  %mean(PI0s.Var3(11:end, :)); 
+    I0s = 2.5107; % Taken from 0 deg case calibration of calibration data  %mean(PI0s.Var3(11:end, :)); 
     func = zeros(2, 1);
     func(1) = P0s; 
     func(2) = I0s; 
