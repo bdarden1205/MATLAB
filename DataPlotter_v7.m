@@ -219,30 +219,30 @@ fprintf('Showing data for run # %d\n', run(i))
 
 % Force Data
     % Futek Force Data
-        figure(8), subplot(2, 1, 2)
-        hold on
-        plot(ForceTrial(:, 1), ForceTrial(:, 2:4), 'LineWidth', Ln) % forcetime, fxforce, fyforce, fzforce
-        xlabel('Time [s]', 'FontSize', font)
-        ylabel('Force [N]', 'FontSize', font)
-        % xlim([preimpacttime endimpacttime])
-        xlim([-2 3])
-        legend('x-axis', 'y-axis', 'z-axis', 'location', 'best') 
-        set(gca, 'FontSize', font) ;
-        grid on
-        
-        ResultantForce = sqrt(ForceTrial(:, 2).^2 + ForceTrial(:, 3).^2 + ForceTrial(:, 4).^2) ;
-        figure(8), subplot(2, 1, 1)
-        hold on
-        plot(ForceTrial(:, 1), ResultantForce, 'LineWidth', Ln, 'LineStyle', '--') % forcetime, fzforce
-        plot(ForceTrial(:, 1), abs(ForceTrial(:, 4)), 'LineWidth', Ln, 'LineStyle', ':')
-        xlabel('Time [s]', 'FontSize', font)
-        ylabel('Force [N]', 'FontSize', font)
-        legend('Resultant', 'z-axis', 'location', 'best')
-        xlim([-2 3])
-        set(gca, 'FontSize', font) ;
-        grid on
-        hold off
-        hold off
+%         figure(8), subplot(2, 1, 2)
+%         hold on
+%         plot(ForceTrial(:, 1), ForceTrial(:, 2:4), 'LineWidth', Ln) % forcetime, fxforce, fyforce, fzforce
+%         xlabel('Time [s]', 'FontSize', font)
+%         ylabel('Force [N]', 'FontSize', font)
+%         % xlim([preimpacttime endimpacttime])
+%         xlim([-2 3])
+%         legend('x-axis', 'y-axis', 'z-axis', 'location', 'best') 
+%         set(gca, 'FontSize', font) ;
+%         grid on
+%         
+%         ResultantForce = sqrt(ForceTrial(:, 2).^2 + ForceTrial(:, 3).^2 + ForceTrial(:, 4).^2) ;
+%         figure(8), subplot(2, 1, 1)
+%         hold on
+%         plot(ForceTrial(:, 1), ResultantForce, 'LineWidth', Ln, 'LineStyle', '--') % forcetime, fzforce
+%         plot(ForceTrial(:, 1), abs(ForceTrial(:, 4)), 'LineWidth', Ln, 'LineStyle', ':')
+%         xlabel('Time [s]', 'FontSize', font)
+%         ylabel('Force [N]', 'FontSize', font)
+%         legend('Resultant', 'z-axis', 'location', 'best')
+%         xlim([-2 3])
+%         set(gca, 'FontSize', font) ;
+%         grid on
+%         hold off
+%         hold off
 
         figure(9), subplot(3, 1, 1)
         hold on
@@ -272,15 +272,15 @@ fprintf('Showing data for run # %d\n', run(i))
         set(gca, 'FontSize', font) ;
         grid on
         hold off
-%         figure(8)
-%         plot(ForceTrial(:, 1), ForceTrial(:, 2:4), 'LineWidth', Ln) % forcetime, fxforce, fyforce, fzforce
-%         xlabel('Time [s]', 'FontSize', font)
-%         ylabel('Force [N]', 'FontSize', font)
-%         % xlim([preimpacttime endimpacttime])
-%         xlim([-2 3])
-%         legend('x-axis', 'y-axis', 'z-axis', 'location', 'best') 
-%         set(gca, 'FontSize', font) ;
-%         grid on
+        figure(8)
+        plot(ForceTrial(:, 1), ForceTrial(:, 2:4), 'LineWidth', Ln) % forcetime, fxforce, fyforce, fzforce
+        xlabel('Time [s]', 'FontSize', font)
+        ylabel('Force [N]', 'FontSize', font)
+        % xlim([preimpacttime endimpacttime])
+        xlim([-2 3])
+        legend('x-axis', 'y-axis', 'z-axis', 'location', 'best') 
+        set(gca, 'FontSize', font) ;
+        grid on
 
     % Total Force Data
         figure(3), subplot(3,1,3)
