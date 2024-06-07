@@ -237,13 +237,41 @@ fprintf('Showing data for run # %d\n', run(i))
         plot(ForceTrial(:, 1), abs(ForceTrial(:, 4)), 'LineWidth', Ln, 'LineStyle', ':')
         xlabel('Time [s]', 'FontSize', font)
         ylabel('Force [N]', 'FontSize', font)
-        legend('x-axis', 'y-axis', 'location', 'best')
+        legend('Resultant', 'z-axis', 'location', 'best')
         xlim([-2 3])
         set(gca, 'FontSize', font) ;
         grid on
         hold off
         hold off
-        
+
+        figure(9), subplot(3, 1, 1)
+        hold on
+        plot(ForceTrial(:, 1), ForceTrial(:, 2), 'LineWidth', Ln)
+        xlabel('Time [s]','FontSize', font)
+        ylabel('Force [N]', 'FontSize', font)
+        legend('x-axis', 'location', 'best')
+        xlim([-2 3])
+        set(gca, 'FontSize', font) ;
+        grid on
+
+        figure(9), subplot(3, 1, 2)
+        plot(ForceTrial(:, 1), ForceTrial(:, 3), 'LineWidth', Ln)
+        xlabel('Time [s]','FontSize', font)
+        ylabel('Force [N]', 'FontSize', font)
+        legend('y-axis', 'location', 'best')
+        xlim([-2 3])
+        set(gca, 'FontSize', font) ;
+        grid on
+
+        figure(9), subplot(3, 1, 3)
+        plot(ForceTrial(:, 1), ForceTrial(:, 4), 'LineWidth', Ln)
+        xlabel('Time [s]','FontSize', font)
+        ylabel('Force [N]', 'FontSize', font)
+        legend('z-axis', 'location', 'best')
+        xlim([-2 3])
+        set(gca, 'FontSize', font) ;
+        grid on
+        hold off
 %         figure(8)
 %         plot(ForceTrial(:, 1), ForceTrial(:, 2:4), 'LineWidth', Ln) % forcetime, fxforce, fyforce, fzforce
 %         xlabel('Time [s]', 'FontSize', font)
